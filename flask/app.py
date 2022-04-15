@@ -91,6 +91,6 @@ if __name__ == "__main__":
     model_path = "F:\FYP\gi-tract-backend\mode_resenet.h5"
     model = tf.keras.models.load_model(model_path)
     print ('Model loaded')
-    # model_columns = joblib.load(model_columns_file_name) # Load "model_columns.pkl"
-    # print ('Model columns loaded')
+    model_columns = joblib.load(model_columns_file_name) # Load "model_columns.pkl"
+    print ('Model columns loaded')
     app.run(port=5000, debug=True)
