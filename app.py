@@ -61,7 +61,8 @@ def upload_file():
 
     return jsonify({ 'message': 'Could not upload the file !', 'valid': False  })
 
-@app.route('/predict', methods=['POST']) # Your API endpoint URL would consist /predict
+# prediction API
+@app.route('/predict', methods=['POST'])
 def predict():
     if model:
         try:
@@ -75,11 +76,6 @@ def predict():
 
             img_bytes = file.read()
             img = prepare_image(img_bytes)
-            # json_ = request.json
-            # query = pd.get_dummies(pd.DataFrame(json_))
-            # query = query.reindex(columns=model_columns, fill_value=0)
-
-            # prediction = list(lr.predict(query))
 
             class_result , prob_result = predict_result(img)
             predictions = {
@@ -134,7 +130,7 @@ def predict_result(img):
     return class_result, prob_result
 
 if __name__ == "__main__":
-    model_path = "F:\FYP\gi-tract-backend\models\model_resnet_50.h5"
+    model_path = "F:\FYP\gi-tract-backend\models\model_final.h5"
     model = tf.keras.models.load_model(model_path)
     print ('Model loaded')
     # model_columns = joblib.load(model_columns_file_name) # Load "model_columns.pkl"
