@@ -17,6 +17,7 @@ app = Flask(__name__)
 CORS(app)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+# class names
 classes = ['esophagitis-a', 'polyps', 'barretts-short-segment',
  'ulcerative-colitis-grade-3', 'ulcerative-colitis-grade-1-2',
  'ulcerative-colitis-grade-2', 'bbps-0-1', 'barretts',
@@ -41,6 +42,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+# upload file API
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
@@ -99,6 +101,7 @@ def predict():
         print ('Train the model first')
         return ('No model here to use')
 
+# method to prepare the image for model
 def prepare_image(img):
     img = Image.open(io.BytesIO(img))
     img = img.resize((128, 128))
@@ -108,6 +111,7 @@ def prepare_image(img):
     img = np.expand_dims(img, axis=0)
     return img
 
+# method to predict the result and return output
 def predict_result(img):
     prediction = model.predict(img)
     highest_pred = np.max(prediction)
